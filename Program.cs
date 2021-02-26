@@ -34,6 +34,20 @@ namespace DesignPatterns
             Size = size;
         }
     }
+
+    public class ProductFilter
+    {
+        public static IEnumerable<Product> FilterBySize(IEnumerable<Product> products, Size size)
+        {
+            foreach (var product in products)
+            {
+                if (product.Size == size)
+                {
+                    yield return product;
+                }
+            }
+        }
+    }
     public class Demo
     {
         static void Main(string[] args)
