@@ -70,6 +70,32 @@ namespace DesignPatterns
         IEnumerable<T> Filter(IEnumerable<T> items, ISpecification<T> specification);
     }
 
+    public class ColorSpecification : ISpecification<Product>
+    {
+        private Color color;
+
+        public ColorSpecification(Color color)
+        {
+            this.color = color;
+        }
+        public bool IsSatisfied(Product t)
+        {
+            return t.Color == color;
+        }
+    }
+    public class BetterFilter: IFilter<Product>
+    {
+        public IEnumerable<Product> Filter(IEnumerable<Product> items, ISpecification<Product> specification)
+        {
+            foreach (var item in items)
+            {
+                if (specification.IsSatisfied(item))
+                {
+                    yield return item;
+                }
+            }
+        }
+    }
 
     public class Program
     {
@@ -82,12 +108,11 @@ namespace DesignPatterns
 
             Product[] products = {apple, tree, roseBush};
 
-            var pf = new ProductFilter();
-
-            Console.WriteLine("Green products (old):");
-            foreach (var product in pf.FilterByColor(products, Color.Green))
+            var pf = new BetterFilter();
+            Console.WriteLine("Green products (new):");
+            foreach (var product in pf.Filter(products, new ColorSpecification(Color.Green)))
             {
-                Console.WriteLine($" -{product.Name} is green");
+                Console.WriteLine($" - {product.Name} is green");
             }
         }
     }
