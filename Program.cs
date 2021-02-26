@@ -60,6 +60,17 @@ namespace DesignPatterns
 
     }
 
+    public interface ISpecification<T>
+    {
+        bool IsSatisfied(T t);
+    }
+
+    public interface IFilter<T>
+    {
+        IEnumerable<T> Filter(IEnumerable<T> items, ISpecification<T> specification);
+    }
+
+
     public class Program
     {
         static void Main(string[] args)
