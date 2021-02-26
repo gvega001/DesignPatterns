@@ -59,7 +59,8 @@ namespace DesignPatterns
         }
 
     }
-    public class Demo
+
+    public class Program
     {
         static void Main(string[] args)
         {
